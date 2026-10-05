@@ -1,10 +1,7 @@
-# Decap CMS 后台配置
+# Decap CMS 后台配置（Netlify 托管）
 backend:
-  name: github
-  repo: m-ranyan/my-blog
+  name: git-gateway
   branch: main
-  base_url: https://my-blog-auth.2022918851.workers.dev
-  auth_endpoint: auth
 
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
