@@ -149,6 +149,13 @@ const bannerOffset =
 
 		<!-- Netlify Identity 登录组件（用于后台设密码/登录） -->
 		<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+		<script is:inline>
+			window.addEventListener("load", function () {
+				if (window.netlifyIdentity && /(recovery_token|invite_token|confirmation_token)=/.test(location.hash)) {
+					setTimeout(function () { window.netlifyIdentity.open(); }, 300);
+				}
+			});
+		</script>
 	</head>
 	<body class=" min-h-screen transition " class:list={[{"lg:is-home": isHomePage, "enable-banner": enableBanner}]}
 		  data-overlayscrollbars-initialize
