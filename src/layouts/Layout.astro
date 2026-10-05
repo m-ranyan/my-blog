@@ -150,16 +150,26 @@ const bannerOffset =
 		<!-- Netlify Identity 登录组件（用于后台设密码/登录） -->
 		<script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 		<script is:inline>
-			window.addEventListener("load", function () {
-				if (window.netlifyIdentity && /(recovery_token|invite_token|confirmation_token)=/.test(location.hash)) {
-					setTimeout(function () { window.netlifyIdentity.open(); }, 300);
+			(function () {
+				var tries = 0;
+				function tryOpen() {
+					if (window.netlifyIdentity) {
+						if (/(recovery_token|invite_token|confirmation_token)=/.test(location.hash)) {
+							window.netlifyIdentity.open();
+						}
+					} else if (tries++ < 50) {
+						setTimeout(tryOpen, 200);
+					}
 				}
-				var btn = document.createElement("button");
-				btn.innerText = "登录后台";
-				btn.style.cssText = "position:fixed;bottom:20px;right:20px;z-index:9999;background:#0d93a8;color:#fff;border:none;padding:10px 16px;border-radius:8px;cursor:pointer;";
-				btn.onclick = function () { window.netlifyIdentity.open(); };
-				document.body.appendChild(btn);
-			});
+				tryOpen();
+				window.addEventListener("load", function () {
+					var btn = document.createElement("button");
+					btn.innerText = "登录后台";
+					btn.style.cssText = "position:fixed;bottom:20px;right:20px;z-index:99999;background:#0d93a8;color:#fff;border:none;padding:10px 16px;border-radius:8px;cursor:pointer;font-size:14px;";
+					btn.onclick = function () { if (window.netlifyIdentity) window.netlifyIdentity.open(); };
+					document.body.appendChild(btn);
+				});
+			})();
 		</script>
 	</head>
 	<body class=" min-h-screen transition " class:list={[{"lg:is-home": isHomePage, "enable-banner": enableBanner}]}
