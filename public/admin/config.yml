@@ -1,7 +1,10 @@
 # Decap CMS 后台配置
 backend:
-  name: git-gateway
+  name: github
+  repo: m-ranyan/my-blog
   branch: main
+  base_url: https://my-blog-auth.2022918851.workers.dev
+  auth_endpoint: auth
 
 media_folder: "public/images/uploads"
 public_folder: "/images/uploads"
