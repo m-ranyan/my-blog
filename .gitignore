@@ -29,3 +29,7 @@ yarn.lock
 # ide
 .idea
 *.iml
+
+# obsidian local files
+.obsidian/
+*.base
